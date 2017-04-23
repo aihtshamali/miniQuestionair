@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/css/main.css">
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{URL::asset('bootstrap/css/bootstrap.min.css')}}">
+    {{-- <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
     {{-- <link rel="stylesheet" href="{{URL::asset('bootstrap/dist/css/bootstrap.min.css')}}"> --}}
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -52,7 +52,8 @@
                 </div>
 
     <!-- Scripts -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> --}}
+    <script src="{{asset('js/jquery/dist/jquery.min.js')}}">  </script>
     <script src="/js/main.js"></script>
 <script>
       </script>

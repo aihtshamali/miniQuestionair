@@ -13,7 +13,7 @@ class questionController extends Controller
      */
     public function index()
     {
-      return redirect()->back();
+      return view('/questionair');
     }
 
     /**
@@ -32,9 +32,18 @@ class questionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $r)
     {
-        //
+      $questions=$r['question'];
+      $answers=$r['answer'];
+      //  $aa=array_combine($questions,$answers);
+      //return (""+$answers+"      "+$questions);
+      foreach ($questions as $k) {
+        print($k);
+      }
+      foreach ($answers as $value) {
+        print($value);
+        }
     }
 
     /**
