@@ -65,20 +65,20 @@ $(document).ready(function() {
         e.preventDefault();
       });
 
-      var multiple='<div class="choice1"><label for="">Choice : </label> <input type="text" name="answer[]" placeholder="Enter Choice "><input type="radio" val="1" name="1">Correct?</input><button type="button" class="choiceDelete" name="button">Delete</button></div>';
-      var single='<div class="choice1"><label for="">Choice : </label> <input type="text" name="answer[]" placeholder="Enter Choice..."><input type="radio" val="1" name="1">Correct?</input><button type="button" class="choiceDelete"  name="button">Delete</button></div>';
+      var multiple='<div class="choice1"><label for="">Choice : </label> <input type="text" name="answer'+i+'[]" placeholder="Enter Choice "><input type="checkbox" value="1" name="multiple1[]">Correct?</input><button type="button" class="choiceDelete" name="button">Delete</button></div>';
+      var single='<div class="choice1"><label for="">Choice : </label> <input type="text" name="answer[]" placeholder="Enter Choice..."><input type="radio" value="1" name="1">Correct?</input><button type="button" class="choiceDelete"  name="button">Delete</button></div>';
       var text='<label for="answer">Answer : </label><input type="text" name="answer[]" placeholder="Enter Answer....">';
 
 /////        ADD Choices function
 
       function addM(){
         j++;
-        return multiple.replace('class="choice1"','class="choice'+j+'"').replace('name="1"','name="'+j+'"').replace('val="1"','val="'+j+'"');
+        return multiple.replace('class="choice1"','class="choice'+j+'"').replace('name="multiple'+(i-1)+'[]"','name="multiple'+i+'[]"').replace('value="1"','value="'+j+'"').replace('name="answer'+(i-1)+'[]"','name="answer'+i+'[]"');
       }
 
       function addS(){
         k++;
-        return multiple.replace('class="choice1"','class="choice'+k+'"').replace('val="1"','val="'+k+'"');
+        return multiple.replace('class="choice1"','class="choice'+k+'"').replace('value="1"','value="'+k+'"');
       }
 
 

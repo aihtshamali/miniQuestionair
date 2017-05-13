@@ -34,16 +34,19 @@ class questionController extends Controller
      */
     public function store(Request $r)
     {
-      $questions=$r['question'];
-      $answers=$r['answer'];
-      //  $aa=array_combine($questions,$answers);
-      //return (""+$answers+"      "+$questions);
-      foreach ($questions as $k) {
-        print($k);
-      }
-      foreach ($answers as $value) {
-        print($value);
-        }
+
+      dd($r);
+
+      // $questions=$r['question'];
+      // $answers=$r['answer'];
+      // //  $aa=array_combine($questions,$answers);
+      // //return (""+$answers+"      "+$questions);
+      // foreach ($questions as $k) {
+      //   print($k);
+      // }
+      // foreach ($answers as $value) {
+      //   print($value);
+      //   }
     }
 
     /**
