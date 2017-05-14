@@ -8,7 +8,7 @@
   </div>
     <div class="top-right links">
         @if (Auth::check())
-            <a href="#">Logout</a>
+            <a href="#">Logout</a >       {{--{{Auth::logout()}}--}}
         @else
             <a href="{{ url('/login') }}">Login</a>
             <a href="{{ url('/register') }}">Register</a>

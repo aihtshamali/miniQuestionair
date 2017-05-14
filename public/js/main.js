@@ -1,22 +1,30 @@
 
-var docURL = document.URL;
-    var links = document.querySelectorAll('a[href]');
-    for (var i = 0; i< links.length; i++) {
-        var link = links[i];
-        if (link.href === docURL) {
-            link.className += 'current-link';
-        }
-    }
-
-
 
 
 
 
 $(document).ready(function() {
-      var i=1,j=1,k=1;
+
+  var docURL = document.URL;
+      var links = document.querySelectorAll('a[href]');
+      for (var i = 0; i< links.length; i++) {
+          var link = links[i];
+          if (link.href === docURL) {
+              link.className += 'current-link';
+          }
+      }
+
+
+      var i=0,j=1,k=1,choice=[];
       var btn='<button class="hiden btn btn-info btn-sm AddChoice" id="1" >Add Choice</button>';
       var template=$("div.idtxt").first().clone();
+      i++;
+      template.attr('id',i);
+      template.css('display','block');
+      template.find('select').attr('id',i);
+      template.find('div.answer').attr('id',i);
+      template.find('input[name=answer'+1+'\\[\\]]').attr('name','answer'+i+'[]');
+      $('div#Questions').append(template.clone());
 
   /////          ADD Question
 
@@ -25,6 +33,8 @@ $(document).ready(function() {
         template.attr('id',i);
         template.find('select').attr('id',i);
         template.find('div.answer').attr('id',i);
+        template.find('input[name=answer'+(i-1)+'\\[\\]]').attr('name','answer'+i+'[]');
+
         $('div#Questions').append(template.clone());
     });
 
@@ -52,7 +62,7 @@ $(document).ready(function() {
             $(addS()).insertBefore('button#'+ida+'.hiden');
         }
         else {
-          $(addM()).insertBefore('button#'+ida+'.hiden');
+          $(addM(ida)).insertBefore('button#'+ida+'.hiden');
         }
         e.preventDefault();
       });
@@ -65,20 +75,21 @@ $(document).ready(function() {
         e.preventDefault();
       });
 
-      var multiple='<div class="choice1"><label for="">Choice : </label> <input type="text" name="answer'+i+'[]" placeholder="Enter Choice "><input type="checkbox" value="1" name="multiple1[]">Correct?</input><button type="button" class="choiceDelete" name="button">Delete</button></div>';
-      var single='<div class="choice1"><label for="">Choice : </label> <input type="text" name="answer[]" placeholder="Enter Choice..."><input type="radio" value="1" name="1">Correct?</input><button type="button" class="choiceDelete"  name="button">Delete</button></div>';
-      var text='<label for="answer">Answer : </label><input type="text" name="answer[]" placeholder="Enter Answer....">';
+      var multiple='<div class="choice1"><label for="">Choice : </label> <input type="text" name="answer'+1+'[]" placeholder="Enter Choice "><input type="checkbox" value="1" name="multiple1[]">Correct?</input><button type="button" class="choiceDelete" name="button">Delete</button></div>';
+      var single='<div class="choice1"><label for="">Choice : </label> <input type="text" name="answer1[]" placeholder="Enter Choice..."><input type="radio" value="1" name="1">Correct?</input><button type="button" class="choiceDelete"  name="button">Delete</button></div>';
+      var text='<label for="answer">Answer : </label><input type="text" name="answer1[]" placeholder="Enter Answer....">';
 
 /////        ADD Choices function
 
-      function addM(){
+      function addM(ida){
         j++;
-        return multiple.replace('class="choice1"','class="choice'+j+'"').replace('name="multiple'+(i-1)+'[]"','name="multiple'+i+'[]"').replace('value="1"','value="'+j+'"').replace('name="answer'+(i-1)+'[]"','name="answer'+i+'[]"');
+        choice[ida]++;
+        return multiple.replace('class="choice1"','class="choice'+choice[ida]+'"').replace('name="multiple'+1+'[]"','name="multiple'+ida+'[]"').replace('value="1"','value="'+choice[ida]+'"').replace('name="answer'+1+'[]"','name="answer'+ida+'[]"');
       }
 
-      function addS(){
+      function addS(ida){
         k++;
-        return multiple.replace('class="choice1"','class="choice'+k+'"').replace('value="1"','value="'+k+'"');
+        return single.replace('class="choice1"','class="choice'+k+'"').replace('value="1"','value="'+k+'"').replace('name="answer'+1+'[]"','name="answer'+ida+'[]"').replace('name="1"','name="single'+ida+'"');
       }
 
 
@@ -89,14 +100,18 @@ $(document).ready(function() {
 
               if($(this).val()==="text"){
                 $('button.hiden').hide();
+                text.replace('name="answer'+(ida-1)+'[]"','name="answer'+ida+'[]"');
+
                 $('div#'+ida+'.answer').html(text);
               }
               else if ($(this).val()==="multiplechoiceS"){
-                  $('div#'+ida+'.answer').html(multiple + addS() + addS()).append(btn);
+                  $('div#'+ida+'.answer').html(addS(ida) + addS(ida) + addS(ida)).append(btn);
                   $('button.hiden').show();
               }
               else if ($(this).val()==="multiplechoiceM"){
-                  $('div#'+ida+'.answer').html(multiple + addM() + addM()).append(btn);
+                  choice[ida] = choice[ida] || 0;
+
+                  $('div#'+ida+'.answer').html(addM(ida) + addM(ida) + addM(ida)).append(btn);
                   $('button.hiden').show();
              }
              $(this).parentsUntil('div#'+ida).parent().find('button.hiden').attr('id',ida);

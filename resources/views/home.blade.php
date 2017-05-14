@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xs-12  col-md-8 col-md-offset-2 full-height " id="body">
             <div class="panel panel-default ">
-                <div class="panel-heading ">Questionairs   
+                <div class="panel-heading ">Questionairs
                   <span><button class="btn btn-info" style="position:absolute;right:20px;margin-top:-5px;"  type="success" name="newQuestion">
                     <a href="questionair/create" style="color:black">Add Question</a></button></span>
                 </div>
@@ -27,7 +27,7 @@
                         <tr>
                           <td>{{$questionair->id}}</td>
                           <td>{{$questionair->name}}</td>
-                          <td>{{$questionair->qNumber}}<strong> | </strong><a href="questions/create">Add</a></td>
+                          <td>{{$questionair->qNumber}}<strong>{{$counter}} | </strong><a href="questions/create">Add</a></td>
                           <td>{{$questionair->duration}}</td>
                           <td>{{$questionair->resumeable}}</td>
                           <td>{{$questionair->published}}</td>

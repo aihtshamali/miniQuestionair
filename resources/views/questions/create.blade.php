@@ -3,10 +3,10 @@
 @section('content')
   <form class="form-horizontal" action="{{route('questions.store')}}" method="post">
       <div id="Questions">
-        <div class="idtxt"  id="1">
+        <div class="idtxt" style="display:none;" id="0">
           <div class="QuestionType">
             <label for="Question Type" >Question Type : </label>
-            <select class="dropdown-menu-right" id="1" name="single">
+            <select class="dropdown-menu-right" id="0" name="select[]">
               <option value="text">Text</option>
               <option value="multiplechoiceS">MultipleChoice (Single Option)</option>
               <option  value="multiplechoiceM">MultipleChoice (Multiple Option)</option>
@@ -17,8 +17,8 @@
             <label for="answer">Question : </label>
             <input type="text" name="question[]" class="" placeholder="Enter Question...."><br/>
           </div>
-          <div class="answer" id="1">
-            <label for="answer">Answer : </label><input type="text" name="answer[]" placeholder="Enter Answer....">
+          <div class="answer" id="0">
+            <label for="answer">Answer : </label><input type="text" name="answer1[]" placeholder="Enter Answer....">
           </div>
         </div>
       </div>

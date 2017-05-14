@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Questionair;
+use App\Question;
 use Illuminate\Http\Request;
 class QuestionairController extends Controller
 {
@@ -15,8 +16,9 @@ class QuestionairController extends Controller
     public function index()
     {
       $q=questionair::all();
+          $count=Question::count();
       $q=$q->where('userId', auth::user()->id);
-      return view('home')->with('questionairs', $q);
+      return view('home',['questionairs'=>$q,'counter'=>$count]);
     }
 
     /**
@@ -38,6 +40,8 @@ class QuestionairController extends Controller
     public function store(Request $r)
     {
         $q=new Questionair();
+
+
         $q->name=$r['name'];
         $q->userId=auth::user()->id;
         $q->duration=$r['duration'].$r['format'];

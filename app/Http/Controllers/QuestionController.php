@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Question;
+use App\Answer;
 use Illuminate\Http\Request;
+use App\Questionair;
 
 class questionController extends Controller
 {
@@ -35,19 +37,78 @@ class questionController extends Controller
     public function store(Request $r)
     {
 
-      dd($r);
+    foreach ($r['question'] as $k => $v ) {
+      if($v===null){
+        continue;
+      }
+      $q=new Question();
+      // dd($r);
+      $q->question=$v;
+      $q->questionairId=1;
+      $q->qtype=$r['select'][$k];
+      if ('multiplechoiceM' == $r['select'][$k]) {
+        $choices=$r['multiple' . $k];
+        $answers=$r['answer' . $k];
+        $q->save();
+          $size=sizeof($choices);
+          $i=0;$j=0;
+        foreach ( $answers as $answer)
+        {
+          if($answer===null)
+          {
+            $i++;
+            continue;
+          }
+              $a = new Answer();
+              $a->answer = $answer;
+              if($i==$choices[$j])
+              {
+                $a->status=1;
+                $j++;
+              }
+              $a->question()->associate($q);
+              $a->save();
+              $i++;
+        }
+      }
 
-      // $questions=$r['question'];
-      // $answers=$r['answer'];
-      // //  $aa=array_combine($questions,$answers);
-      // //return (""+$answers+"      "+$questions);
-      // foreach ($questions as $k) {
-      //   print($k);
-      // }
-      // foreach ($answers as $value) {
-      //   print($value);
-      //   }
-    }
+      else if ('multiplechoiceS' == $r['select'][$k] ){
+        $choices=$r['single' . $k];
+        $choice=$choices-1;
+        $answers=$r['answer' . $k];
+        $q->save();$i=0;
+        foreach ( $answers as $answer)
+        {
+          if($answer===null)
+          {
+            $i++;
+            continue;
+          }
+              $a = new Answer();
+              $a->answer = $answer;
+              if($i==$choice)
+              {
+                $a->status=1;
+              }
+              $a->question()->associate($q);
+              $a->save();
+              $i++;
+        }
+      //  dd($choices-1);
+      }
+
+      else if ('text' == $r['select'][$k] ){
+
+        $answer=$r['answer' . $k];
+        $q->save();
+        $a = new Answer();
+        $a->answer = $answer[1];
+        $a->question()->associate($q);
+        $a->save();
+      }
+
+  }
+}
 
     /**
      * Display the specified resource.
@@ -57,7 +118,7 @@ class questionController extends Controller
      */
     public function show($id)
     {
-        //
+      return view("Under Construction");
     }
 
     /**
@@ -91,6 +152,7 @@ class questionController extends Controller
      */
     public function destroy($id)
     {
-        //
+      Questionair::destroy($id);
+      return redirect()->route('question.index');
     }
 }

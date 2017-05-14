@@ -9,7 +9,7 @@ class question extends Model
   public function questionair(){
     return $this->hasMany('App\Questionair');
   }
-  public function questionair(){
+  public function answers(){
     return $this->hasMany('App\Answer');
   }
 
